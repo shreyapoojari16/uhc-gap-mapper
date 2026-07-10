@@ -13,4 +13,3 @@ plotly
 openpyxl
 flask
 gunicorn
-gunicorn
