@@ -506,7 +506,7 @@ def notifications():
             'time': 'Live'
         },
         {
-            ' 'title': 'Model comparison report available',
+            'title': 'Model comparison report available',
             'body': 'SVM (RBF kernel) is currently the top-performing model at 92.6% test accuracy across 4 models evaluated.',
             'time': 'Live'
         },
