@@ -450,12 +450,12 @@ def documents():
         pass
 
     base_docs = [
-        {'icon': '📄', 'name': 'RHS 2020 Health Infrastructure Report', 'type': 'Government Dataset', 'size': f"{len(df)} districts", 'author': 'Ministry of Health', 'date': 'FY 2020'},
-        {'icon': '📊', 'name': 'HMIS 2019 Maternal & Child Health Data', 'type': 'Government Dataset', 'size': f"{len(df)} districts", 'author': 'Ministry of Health', 'date': 'FY 2019'},
-        {'icon': '📋', 'name': 'NFHS-5 District Factsheets', 'type': 'Survey Data', 'size': f"{len(df)} districts", 'author': 'Ministry of Health & Family Welfare', 'date': '2019-21'},
-        {'icon': '🗺️', 'name': 'Census 2011 District Population Data', 'type': 'Census Data', 'size': f"{len(df)} districts", 'author': 'Ministry of Home Affairs', 'date': '2011'},
-        {'icon': '🧮', 'name': 'UHC Gap Mapper — Model Comparison Report', 'type': 'Analytics', 'size': '4 models evaluated', 'author': 'System Generated', 'date': datetime.now().strftime('%b %Y')},
-        {'icon': '📈', 'name': 'District Tier Classification Summary', 'type': 'Analytics', 'size': f"{len(df)} districts classified", 'author': 'System Generated', 'date': datetime.now().strftime('%b %Y')},
+        { 'name': 'RHS 2020 Health Infrastructure Report', 'type': 'Government Dataset', 'size': f"{len(df)} districts", 'author': 'Ministry of Health', 'date': 'FY 2020'},
+        { 'name': 'HMIS 2019 Maternal & Child Health Data', 'type': 'Government Dataset', 'size': f"{len(df)} districts", 'author': 'Ministry of Health', 'date': 'FY 2019'},
+        { 'name': 'NFHS-5 District Factsheets', 'type': 'Survey Data', 'size': f"{len(df)} districts", 'author': 'Ministry of Health & Family Welfare', 'date': '2019-21'},
+        { 'name': 'Census 2011 District Population Data', 'type': 'Census Data', 'size': f"{len(df)} districts", 'author': 'Ministry of Home Affairs', 'date': '2011'},
+        { 'name': 'UHC Gap Mapper — Model Comparison Report', 'type': 'Analytics', 'size': '4 models evaluated', 'author': 'System Generated', 'date': datetime.now().strftime('%b %Y')},
+        { 'name': 'District Tier Classification Summary', 'type': 'Analytics', 'size': f"{len(df)} districts classified", 'author': 'System Generated', 'date': datetime.now().strftime('%b %Y')},
     ]
 
     if 'uploaded_docs' not in app.config:
@@ -463,7 +463,7 @@ def documents():
 
     if request.method == 'POST':
         app.config['uploaded_docs'].append({
-            'icon': '📁', 'name': request.form.get('doc_name'), 'type': request.form.get('doc_type'),
+             'name': request.form.get('doc_name'), 'type': request.form.get('doc_type'),
             'size': 'User uploaded', 'author': 'You', 'date': datetime.now().strftime('%b %d, %Y'),
         })
 
@@ -486,32 +486,32 @@ def notifications():
 
     notifications_list = [
         {
-            'icon': '🔴', 'title': f'{worst["district"]} flagged as most critical district',
+            'title': f'{worst["district"]} flagged as most critical district',
             'body': f'{worst["district"]}, {worst["state"]} has the lowest healthcare access score nationally ({round(worst["healthcare_access_score"],2)}). Immediate administrative review recommended.',
             'time': 'Live'
         },
         {
-            'icon': '⚠️', 'title': f'{critical_count} districts currently in Critical tier',
+            'title': f'{critical_count} districts currently in Critical tier',
             'body': f'Out of {len(df)} total districts, {critical_count} ({round(critical_count/len(df)*100,1)}%) are classified Critical by the trained model.',
             'time': 'Live'
         },
         {
-            'icon': '📍', 'title': f'{top_critical_state} has the most Critical districts',
+            'title': f'{top_critical_state} has the most Critical districts',
             'body': f'{top_critical_state_count} districts in {top_critical_state} are currently classified as Critical — the highest concentration of any state.',
             'time': 'Live'
         },
         {
-            'icon': '🟢', 'title': f'{best["district"]} leads national healthcare access',
+            'title': f'{best["district"]} leads national healthcare access',
             'body': f'{best["district"]}, {best["state"]} has the highest healthcare access score nationally ({round(best["healthcare_access_score"],2)}).',
             'time': 'Live'
         },
         {
-            'icon': '🧮', 'title': 'Model comparison report available',
+            ' 'title': 'Model comparison report available',
             'body': 'SVM (RBF kernel) is currently the top-performing model at 92.6% test accuracy across 4 models evaluated.',
             'time': 'Live'
         },
         {
-            'icon': '📊', 'title': 'Dataset last refreshed',
+             'title': 'Dataset last refreshed',
             'body': f'District data covers Census 2011, RHS 2020, HMIS 2019, and NFHS-5 2019 — {len(df)} districts total.',
             'time': 'System'
         },

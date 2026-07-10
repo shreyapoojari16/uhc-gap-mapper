@@ -8,9 +8,9 @@
 <body>
     <header class="topbar">
         <div class="topbar-left">
-            <span style="font-size:24px;">🏥</span>
-            <h1>UHC Gap Mapper</h1>
-        </div>
+    <img src="{{ url_for('static', filename='uhc-logo.png') }}" alt="UHC Gap Mapper" style="width:28px; height:28px; object-fit:contain;">
+    <h1>UHC Gap Mapper</h1>
+</div>
         <div style="color:#43474f; font-size:13px;">{{ total_districts }} districts · updated today</div>
     </header>
 
@@ -21,15 +21,15 @@
             <p>Health Ministry</p>
         </div>
         <nav>
-            <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active_page=='dashboard' else '' }}">📊 Dashboard</a>
-            <a href="{{ url_for('drilldown') }}" class="{{ 'active' if active_page=='drilldown' else '' }}">🔍 District Drill-down</a>
-            <a href="{{ url_for('model_comparison') }}" class="{{ 'active' if active_page=='models' else '' }}">🧮 Model Comparison</a>
-            <a href="{{ url_for('predict') }}" class="{{ 'active' if active_page=='predict' else '' }}">🔮 Predict</a>
-            <a href="{{ url_for('reports') }}" class="{{ 'active' if active_page=='reports' else '' }}">📄 Reports</a>
-            <a href="{{ url_for('documents') }}" class="{{ 'active' if active_page=='documents' else '' }}">📁 Documents</a>
-            <a href="{{ url_for('notifications') }}" class="{{ 'active' if active_page=='notifications' else '' }}">🔔 Notifications</a>
-            <a href="{{ url_for('settings') }}" class="{{ 'active' if active_page=='settings' else '' }}">⚙️ Settings</a>
-        </nav>
+    <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active_page=='dashboard' else '' }}">Dashboard</a>
+    <a href="{{ url_for('drilldown') }}" class="{{ 'active' if active_page=='drilldown' else '' }}">District Drill-down</a>
+    <a href="{{ url_for('model_comparison') }}" class="{{ 'active' if active_page=='models' else '' }}">Model Comparison</a>
+    <a href="{{ url_for('predict') }}" class="{{ 'active' if active_page=='predict' else '' }}">Predict</a>
+    <a href="{{ url_for('reports') }}" class="{{ 'active' if active_page=='reports' else '' }}">Reports</a>
+    <a href="{{ url_for('documents') }}" class="{{ 'active' if active_page=='documents' else '' }}">Documents</a>
+    <a href="{{ url_for('notifications') }}" class="{{ 'active' if active_page=='notifications' else '' }}">Notifications</a>
+    <a href="{{ url_for('settings') }}" class="{{ 'active' if active_page=='settings' else '' }}">Settings</a>
+</nav>
     </aside>
 
     <main class="main-content">
