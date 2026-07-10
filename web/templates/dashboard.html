@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | UHC Gap Mapper{% endblock %}
+{% block content %}
+<h2 style="color:#00264a; font-size:22px; font-weight:700; margin-bottom:20px;">Healthcare Access Overview</h2>
+<h2 style="color:#00264a; font-size:22px; font-weight:700; margin-bottom:20px;">Healthcare Access Overview</h2>
+
+<div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px;">
+    <div class="content-card">
+        <div class="kpi-label">Total Districts</div>
+        <div class="kpi-value">{{ total_districts }}</div>
+    </div>
+    <div class="content-card">
+        <div class="kpi-label">Critical</div>
+        <div class="kpi-value critical">{{ critical_count }}</div>
+    </div>
+    <div class="content-card">
+        <div class="kpi-label">Model F1 Score</div>
+        <div class="kpi-value good">0.93</div>
+        <div class="kpi-sub">SVM · high confidence</div>
+    </div>
+    <div class="content-card">
+        <div class="kpi-label">Avg Access Score</div>
+        <div class="kpi-value">{{ avg_score }}</div>
+    </div>
+</div>
+
+<div class="content-card" style="padding:0; overflow:hidden; margin-bottom:24px;">
+    <div style="padding:16px 20px; border-bottom:1px solid #eef1f4; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h3 style="color:#00264a;">India Coverage Map</h3>
+            <p style="color:#43474f; font-size:13px;">Districts colored by predicted healthcare coverage tier</p>
+        </div>
+        <div style="display:flex; gap:14px; font-size:12px; color:#43474f;">
+            <span>🔴 Critical</span>
+            <span>🟠 Underserved</span>
+            <span>🟡 Adequate</span>
+            <span>🟢 Well Covered</span>
+        </div>
+    </div>
+    {{ map_html|safe }}
+    <p style="color:#8a919c; font-size:11.5px; padding:10px 20px;">{{ matched_count }} of {{ map_total }} districts matched to map boundaries ({{ match_pct }}%). Unmatched districts appear grey due to naming differences between data sources.</p>
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div class="content-card">
+        <h3 style="color:#00264a; margin-bottom:12px;">Tier Distribution</h3>
+        {% for tier, count in tier_counts.items() %}
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eef1f4;">
+            <span class="tier-badge tier-{{ tier|replace(' ', '-') }}">{{ tier }}</span>
+            <span style="font-weight:700; color:#00264a;">{{ count }}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="content-card">
+        <h3 style="color:#00264a; margin-bottom:12px;">Districts Needing Attention</h3>
+        <table class="data-table">
+            <thead><tr><th>District</th><th>State</th><th>Score</th><th>Tier</th></tr></thead>
+            <tbody>
+            {% for row in worst_districts %}
+            <tr>
+                <td><a href="{{ url_for('drilldown', district=row.district) }}" style="color:#00264a; font-weight:600; text-decoration:none;">{{ row.district }}</a></td>
+                <td>{{ row.state }}</td>
+                <td>{{ row.score }}</td>
+                <td><span class="tier-badge tier-{{ row.tier|replace(' ', '-') }}">{{ row.tier }}</span></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

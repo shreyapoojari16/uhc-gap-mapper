@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UHC Gap Mapper — Loading</title>
+<style>
+body { font-family:'Public Sans',sans-serif; background:#E7EDF3; margin:0; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; }
+.topstrip { position:fixed; top:0; left:0; width:100%; height:4px; background:#0B3C6B; }
+.emblem { width:120px; height:120px; border-radius:50%; border:1px solid #0B3C6B; display:flex; align-items:center; justify-content:center; font-size:48px; margin-bottom:32px; }
+h1 { color:#0B3C6B; font-size:24px; font-weight:600; margin-bottom:4px; }
+.sub { font-size:12px; font-weight:700; letter-spacing:0.1em; color:#B8C6D6; text-transform:uppercase; margin-bottom:32px; }
+.bar-bg { width:300px; height:2px; background:rgba(184,198,214,0.3); overflow:hidden; margin-bottom:8px; }
+.bar-fg { height:100%; width:0%; background:#0B3C6B; animation:progress 2.2s cubic-bezier(.65,0,.35,1) forwards; }
+@keyframes progress { 0%{width:0%;} 100%{width:100%;} }
+#status { font-size:14px; color:#B8C6D6; }
+.footer { position:absolute; bottom:32px; font-size:12px; color:#B8C6D6; }
+</style>
+</head>
+<body>
+<div class="topstrip"></div>
+<div class="emblem">🏛️</div>
+<h1>Ministry of Health &amp; Family Welfare</h1>
+<p class="sub">UHC GAP MAPPER — SECURE ACCESS PORTAL</p>
+<div class="bar-bg"><div class="bar-fg"></div></div>
+<p id="status">Initializing secure session…</p>
+<div class="footer">v2.4.0-GOV | Official Administrative Instance</div>
+<script>
+const messages = ['Initializing secure session…','Connecting to National Health Database…','Loading trained model…','Finalizing dashboard environment…'];
+let i = 0;
+const el = document.getElementById('status');
+const interval = setInterval(() => {
+    i++;
+    if (i < messages.length) { el.textContent = messages[i]; }
+    else { clearInterval(interval); }
+}, 500);
+setTimeout(() => { window.location.href = "{{ url_for('dashboard') }}"; }, 2400);
+</script>
+</body>
+</html>

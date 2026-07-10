@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Settings | UHC Gap Mapper{% endblock %}
+{% block content %}
+<h2 style="color:#00264a; font-size:22px; font-weight:700; margin-bottom:6px;">Settings</h2>
+<p style="color:#43474f; font-size:14px; margin-bottom:20px;">Manage account preferences and system configuration.</p>
+
+<div class="content-card" style="margin-bottom:16px;">
+    <h3 style="color:#00264a; margin-bottom:16px;">Preferences</h3>
+    <form method="post">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid #eef1f4;">
+            <div>
+                <p style="font-weight:600; color:#1a1c1c; font-size:14px;">Email notifications</p>
+                <p style="color:#8a919c; font-size:12.5px;">Receive weekly gap analysis summaries via email.</p>
+            </div>
+            <input type="checkbox" name="email_notif" {{ 'checked' if settings.email_notif else '' }} style="width:40px; height:20px;">
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid #eef1f4;">
+            <div>
+                <p style="font-weight:600; color:#1a1c1c; font-size:14px;">Critical-tier alerts</p>
+                <p style="color:#8a919c; font-size:12.5px;">Real-time alert when a district's tier is recalculated as Critical.</p>
+            </div>
+            <input type="checkbox" name="critical_alerts" {{ 'checked' if settings.critical_alerts else '' }} style="width:40px; height:20px;">
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0;">
+            <div>
+                <p style="font-weight:600; color:#1a1c1c; font-size:14px;">Show confidence scores</p>
+                <p style="color:#8a919c; font-size:12.5px;">Display model confidence alongside every prediction.</p>
+            </div>
+            <input type="checkbox" name="show_confidence" {{ 'checked' if settings.show_confidence else '' }} style="width:40px; height:20px;">
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:16px;">Save changes</button>
+    </form>
+</div>
+
+<div class="content-card">
+    <h3 style="color:#00264a; margin-bottom:14px;">System Information</h3>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+        <div><div class="kpi-label">Active Model</div><div class="kpi-value" style="font-size:18px;">SVM (RBF)</div></div>
+        <div><div class="kpi-label">Model Accuracy</div><div class="kpi-value" style="font-size:18px;">92.6%</div></div>
+        <div><div class="kpi-label">Districts Tracked</div><div class="kpi-value" style="font-size:18px;">{{ total_districts }}</div></div>
+        <div><div class="kpi-label">Data Sources</div><div class="kpi-value" style="font-size:18px;">4</div></div>
+        <div><div class="kpi-label">Last Data Refresh</div><div class="kpi-value" style="font-size:18px;">RHS 2020 / NFHS-5 2019</div></div>
+        <div><div class="kpi-label">Explainability</div><div class="kpi-value" style="font-size:18px;">SHAP (TreeExplainer)</div></div>
+    </div>
+</div>
+{% endblock %}

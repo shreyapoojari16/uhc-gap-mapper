@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Documents | UHC Gap Mapper{% endblock %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <div>
+        <h2 style="color:#00264a; font-size:22px; font-weight:700;">Documents</h2>
+        <p style="color:#43474f; font-size:14px;">Policy documents, audits, and reference material.</p>
+    </div>
+    <button class="btn-primary" onclick="document.getElementById('uploadForm').style.display='flex'">+ Upload document</button>
+</div>
+
+<form id="uploadForm" method="post" style="display:none; gap:10px; margin-bottom:20px;" class="content-card">
+    <input type="text" name="doc_name" placeholder="Document name" required style="flex:2;">
+    <select name="doc_type" style="flex:1;">
+        <option>Policy Document</option>
+        <option>Audit Report</option>
+        <option>Guidelines</option>
+        <option>Analytics</option>
+    </select>
+    <button type="submit" class="btn-primary">Save</button>
+</form>
+
+<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+    {% for doc in documents %}
+    <div class="content-card">
+        <div style="font-size:28px; margin-bottom:10px;">{{ doc.icon }}</div>
+        <h4 style="color:#00264a; font-size:15px; margin-bottom:4px;">{{ doc.name }}</h4>
+        <p style="color:#8a919c; font-size:12.5px; margin-bottom:12px;">{{ doc.type }} · {{ doc.size }}</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eef1f4; padding-top:10px;">
+            <span style="font-size:12.5px; color:#43474f;">{{ doc.author }}</span>
+            <span style="font-size:12px; color:#8a919c;">{{ doc.date }}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="content-card" style="margin-top:20px; display:flex; justify-content:space-between;">
+    <div><span style="color:#43474f; font-size:12px;">TOTAL DOCUMENTS</span><div class="kpi-value" style="font-size:20px;">{{ documents|length }}</div></div>
+    <div><span style="color:#43474f; font-size:12px;">DATA SOURCES REFERENCED</span><div class="kpi-value" style="font-size:20px;">4</div></div>
+    <div><span style="color:#43474f; font-size:12px;">STATUS</span><div style="color:#0f9d58; font-weight:700; margin-top:4px;">● Live from real datasets</div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Notifications | UHC Gap Mapper{% endblock %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <div>
+        <h2 style="color:#00264a; font-size:22px; font-weight:700;">Notifications</h2>
+        <p style="color:#43474f; font-size:14px;">System alerts generated from live model output.</p>
+    </div>
+    <span style="color:#43474f; font-size:13px;">✓ Mark all as read</span>
+</div>
+
+<div class="content-card" style="padding:0; overflow:hidden;">
+    {% for note in notifications %}
+    <div style="display:flex; gap:14px; padding:16px 20px; border-bottom:1px solid #eef1f4; {{ 'background:#f8fafc;' if not loop.last0 else '' }}">
+        <div style="font-size:22px;">{{ note.icon }}</div>
+        <div style="flex:1;">
+            <p style="font-weight:700; color:#00264a; font-size:14.5px;">{{ note.title }}</p>
+            <p style="color:#43474f; font-size:13.5px; margin-top:2px;">{{ note.body }}</p>
+        </div>
+        <div style="color:#8a919c; font-size:12px; white-space:nowrap;">{{ note.time }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

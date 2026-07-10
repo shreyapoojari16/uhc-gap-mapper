@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Model Comparison | UHC Gap Mapper{% endblock %}
+{% block content %}
+<h2 style="color:#00264a; font-size:22px; font-weight:700; margin-bottom:20px;">Model Comparison</h2>
+<p style="color:#43474f; font-size:14px; margin-bottom:20px;">Evaluate predictive performance for Universal Health Coverage gaps across {{ total_districts }} districts.</p>
+
+<div class="content-card" style="margin-bottom:16px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="color:#00264a;">Predictive Model Performance</h3>
+        <span style="background:#f1f5f9; color:#43474f; font-size:11px; font-weight:700; padding:4px 10px; border-radius:6px;">Test set: 20% holdout</span>
+    </div>
+    <table class="data-table">
+        <thead><tr><th>Model</th><th>Accuracy (%)</th><th>F1 Score</th><th>Status</th></tr></thead>
+        <tbody>
+        {% for m in models %}
+        <tr style="{{ 'background:#eef4ff;' if m.recommended else '' }}">
+            <td style="font-weight:700; color:#00264a;">{{ m.name }}</td>
+            <td>{{ m.accuracy }}</td>
+            <td>{{ m.f1 }}</td>
+            <td>
+                {% if m.recommended %}
+                <span style="background:#00264a; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:6px;">RECOMMENDED</span>
+                {% else %}
+                <span style="background:#e2e8f0; color:#43474f; font-size:11px; font-weight:600; padding:3px 10px; border-radius:6px;">{{ m.status }}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div class="content-card">
+        <h3 style="color:#00264a; margin-bottom:12px;">Confusion Matrix — {{ best_model_name }}</h3>
+        <img src="data:image/png;base64,{{ confusion_matrix_img }}" style="width:100%;">
+    </div>
+    <div class="content-card">
+        <h3 style="color:#00264a; margin-bottom:12px;">Feature Importance (Random Forest)</h3>
+        <img src="data:image/png;base64,{{ feature_importance_img }}" style="width:100%;">
+    </div>
+</div>
+{% endblock %}

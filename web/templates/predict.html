@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Predict | UHC Gap Mapper{% endblock %}
+{% block content %}
+<h2 style="color:#00264a; font-size:22px; font-weight:700; margin-bottom:6px;">Predict District Coverage Tier</h2>
+<p style="color:#43474f; font-size:14px; margin-bottom:20px;">Enter indicator values for a real or hypothetical district and get a live prediction from the trained SVM model.</p>
+
+<form method="post" class="content-card">
+    <div style="margin-bottom:16px;">
+        <label>Load values from an existing district (optional)</label>
+        <select name="load_district" onchange="this.form.action='/predict/load'; this.form.submit();">
+            <option value="">— Manual entry —</option>
+            {% for d in all_districts %}
+            <option value="{{ d }}" {{ 'selected' if d == loaded_district else '' }}>{{ d }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px;">
+        {% for f in feature_cols %}
+        <div>
+            <label>{{ friendly[f] }} ({{ ranges[f][0] }}–{{ ranges[f][1] }})</label>
+            <input type="number" step="0.1" name="{{ f }}" min="{{ ranges[f][0] }}" max="{{ ranges[f][1] }}" value="{{ values[f] }}">
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" formaction="/predict" class="btn-primary">🔮 Predict Coverage Tier</button>
+</form>
+
+{% if prediction %}
+<div class="content-card" style="margin-top:16px; border-left:6px solid {{ tier_colors[prediction] }};">
+    <div class="kpi-label">Predicted Coverage Tier</div>
+    <div style="color:{{ tier_colors[prediction] }}; font-size:36px; font-weight:800;">{{ prediction }}</div>
+    <p style="color:#43474f; font-size:14.5px; margin-top:10px; line-height:1.5;">{{ tier_descriptions[prediction] }}</p>
+    <div class="kpi-sub" style="margin-top:10px;">Based on a machine learning model trained on 736 Indian districts (92.6% accuracy on unseen test data)</div>
+</div>
+
+<div class="content-card" style="margin-top:16px;">
+    <h3 style="color:#00264a; margin-bottom:6px;">Why did the model say this?</h3>
+    <p style="color:#43474f; font-size:13px; margin-bottom:14px;">These are the values that mattered most in reaching this prediction, explained in plain terms.</p>
+    {% for factor in top_factors %}
+    <div style="margin-bottom:14px; padding-bottom:14px; {{ 'border-bottom:1px solid #eef1f4;' if not loop.last else '' }}">
+        <p style="font-weight:700; color:#00264a; font-size:14px; margin-bottom:4px;">{{ factor.label }}</p>
+        <p style="font-size:13.5px; color:#43474f; line-height:1.5;">{{ factor.explanation }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

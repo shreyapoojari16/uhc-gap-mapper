@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap');
+
+* {
+    font-family: 'Public Sans', sans-serif;
+}
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header[data-testid="stHeader"] {background-color: transparent;}
+
+.stApp {
+    background-color: #E7EDF3;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #f3f3f4;
+    border-right: 1px solid #B8C6D6;
+}
+
+[data-testid="stSidebar"] .stMarkdown p {
+    color: #43474f;
+}
+
+/* Top header bar */
+.app-header {
+    background-color: #FFFFFF;
+    border: 1px solid #B8C6D6;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-header h1 {
+    color: #00264a;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.app-header p {
+    color: #595f64;
+    margin: 4px 0 0 0;
+    font-size: 14px;
+}
+
+/* KPI cards - content-card style from mockup */
+.kpi-card {
+    background-color: #FFFFFF;
+    border: 1px solid #B8C6D6;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.kpi-label {
+    color: #43474f;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.kpi-value {
+    color: #00264a;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 4px;
+    letter-spacing: -0.02em;
+}
+
+.kpi-value.critical { color: #ba1a1a; }
+.kpi-value.good { color: #10b981; }
+.kpi-sub {
+    color: #595f64;
+    font-size: 14px;
+    margin-top: 4px;
+}
